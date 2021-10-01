@@ -130,7 +130,8 @@ def Recent_Search(lat,long,location):
 def Evaluate_Input(userLocation,location):
     if len(userLocation) == 5 and userLocation.isnumeric():
         try:
-            api_string = "https://www.zipcodeapi.com/rest/HhMI17FqhbvjpxazqCe9w8ecj4bQsepcA5O9EyXC10TVFbVPJj5Xt6O279AnUSmX/info.json/{zip}/degrees".format(
+            # replace <<PRIVATE KEY>> with proper API key from zipcodeapi.com
+            api_string = "https://www.zipcodeapi.com/rest/<<PRIVATE KEY>>/info.json/{zip}/degrees".format(
                 zip=userLocation)
         except:
             print("Network Error - Unable to verify zipcode")
@@ -327,7 +328,8 @@ def Weather_by_Coords(lat,long,location):
     long = long
 
     city_id = City_by_Coords(lat,long)
-    api_string = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lng}&exclude=minutely,hourly,alerts&appid=5ff26c643836bbab24edf9ce7e27c232&units=imperial".format(lat=lat,lng=long)
+# replace <<APP ID>> with API key from openweathermap
+    api_string = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lng}&exclude=minutely,hourly,alerts&appid=<<APP ID>>&units=imperial".format(lat=lat,lng=long)
     try:
         weather_data = requests.get(api_string)
         weather_json = weather_data.json()
