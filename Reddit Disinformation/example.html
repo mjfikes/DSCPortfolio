@@ -1,0 +1,120 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 1000px;
+            background-color: #fffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "black"}, "id": "LockdownSkepticism", "label": "LockdownSkepticism", "shape": "dot", "title": "LockdownSkepticism Neighbors:\u003cbr\u003eShortages\u003cbr\u003eMensRights\u003cbr\u003eLockdownSkepticism\u003cbr\u003eTheCinemassacreTruth\u003cbr\u003ePoliticalCompassMemes\u003cbr\u003esingapore\u003cbr\u003eConservative\u003cbr\u003eWildernessBackpacking\u003cbr\u003ekotakuinaction2\u003cbr\u003econspiracy\u003cbr\u003ecanada\u003cbr\u003eLockdownSkepticismAU\u003cbr\u003eSubSimulatorGPT2Meta\u003cbr\u003eShitPoliticsSays\u003cbr\u003eeurope\u003cbr\u003eCartoonNetwork\u003cbr\u003eCoronavirus\u003cbr\u003eAnarcho_Capitalism\u003cbr\u003eUnresolvedMysteries\u003cbr\u003eukpolitics\u003cbr\u003eCasualUK\u003cbr\u003enottheonion\u003cbr\u003eCOVID19\u003cbr\u003eLockdownCriticalLeft\u003cbr\u003eworldnews\u003cbr\u003eftm\u003cbr\u003eboxoffice\u003cbr\u003eclimateskeptics\u003cbr\u003emoderatepolitics\u003cbr\u003eNorCalLockdownSkeptic\u003cbr\u003eCoronavirusUK\u003cbr\u003eunitedkingdom\u003cbr\u003eCoronavirusCirclejerk\u003cbr\u003estupidpol\u003cbr\u003eeconomy\u003cbr\u003elibertarianmeme\u003cbr\u003evancouver\u003cbr\u003ecollapse\u003cbr\u003emovies\u003cbr\u003epolitics\u003cbr\u003eChurchOfCOVID", "value": 41}, {"font": {"color": "black"}, "id": "Conservative", "label": "Conservative", "shape": "dot", "size": 938.7619506562886, "title": "Conservative Neighbors:\u003cbr\u003eTakeTheJab\u003cbr\u003eLockdownSkepticism", "value": 2}, {"font": {"color": "black"}, "id": "conspiracy", "label": "conspiracy", "shape": "dot", "title": "conspiracy Neighbors:\u003cbr\u003eDebateVaccines\u003cbr\u003ewalkaway\u003cbr\u003eLockdownSkepticism\u003cbr\u003econspiracy\u003cbr\u003eTakeTheJab", "value": 5}, {"font": {"color": "black"}, "id": "kotakuinaction2", "label": "kotakuinaction2", "shape": "dot", "size": 165.72567694838358, "title": "kotakuinaction2 Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "movies", "label": "movies", "shape": "dot", "size": 5119.383361304367, "title": "movies Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "CoronavirusCirclejerk", "label": "CoronavirusCirclejerk", "shape": "dot", "size": 189.23001876023793, "title": "CoronavirusCirclejerk Neighbors:\u003cbr\u003eTakeTheJab\u003cbr\u003eDebateVaccines\u003cbr\u003eLockdownSkepticism", "value": 3}, {"font": {"color": "black"}, "id": "TakeTheJab", "label": "TakeTheJab", "shape": "dot", "title": "TakeTheJab Neighbors:\u003cbr\u003eCoronavirusCirclejerk\u003cbr\u003eDebateVaccines\u003cbr\u003eRetconned\u003cbr\u003econservatives\u003cbr\u003etucker_carlson\u003cbr\u003eConspiracyMemes\u003cbr\u003econspiracyNOPOL\u003cbr\u003eConservative\u003cbr\u003echildfree\u003cbr\u003eLouderWithCrowder\u003cbr\u003econspiracy\u003cbr\u003eTakeTheJab\u003cbr\u003eLockdownSkepticismAU\u003cbr\u003eFightingFakeNews\u003cbr\u003econspiracy_commons\u003cbr\u003efunny\u003cbr\u003eChurchOfCOVID", "value": 17}, {"font": {"color": "black"}, "id": "nottheonion", "label": "nottheonion", "shape": "dot", "size": 4490.7681970905605, "title": "nottheonion Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "ChurchOfCOVID", "label": "ChurchOfCOVID", "shape": "dot", "size": 155.0258043036707, "title": "ChurchOfCOVID Neighbors:\u003cbr\u003eTakeTheJab\u003cbr\u003eLockdownSkepticism", "value": 2}, {"font": {"color": "black"}, "id": "DebateVaccines", "label": "DebateVaccines", "shape": "dot", "title": "DebateVaccines Neighbors:\u003cbr\u003eclimateskeptics\u003cbr\u003eCoronavirusCirclejerk\u003cbr\u003eDebateVaccines\u003cbr\u003eSPACs\u003cbr\u003ebernieblindness\u003cbr\u003eGenZedong\u003cbr\u003eMaliciousCompliance\u003cbr\u003ebritishproblems\u003cbr\u003eWayOfTheBern\u003cbr\u003econspiracy\u003cbr\u003ecollapse\u003cbr\u003eTakeTheJab\u003cbr\u003econspiracy_commons\u003cbr\u003eLockdownCriticalLeft\u003cbr\u003ePoliticalHumor\u003cbr\u003eAskReddit", "value": 16}, {"font": {"color": "black"}, "id": "collapse", "label": "collapse", "shape": "dot", "size": 595.5938213245668, "title": "collapse Neighbors:\u003cbr\u003eDebateVaccines\u003cbr\u003eLockdownSkepticism", "value": 2}, {"font": {"color": "black"}, "id": "COVID19", "label": "COVID19", "shape": "dot", "size": 591.9552347939834, "title": "COVID19 Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "WayOfTheBern", "label": "WayOfTheBern", "shape": "dot", "size": 296.3646402660074, "title": "WayOfTheBern Neighbors:\u003cbr\u003eDebateVaccines", "value": 1}, {"font": {"color": "black"}, "id": "politics", "label": "politics", "shape": "dot", "size": 2789.926522329934, "title": "politics Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "AskReddit", "label": "AskReddit", "shape": "dot", "size": 5834.670342015906, "title": "AskReddit Neighbors:\u003cbr\u003eDebateVaccines", "value": 1}, {"font": {"color": "black"}, "id": "unitedkingdom", "label": "unitedkingdom", "shape": "dot", "size": 802.0716925562203, "title": "unitedkingdom Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "FightingFakeNews", "label": "FightingFakeNews", "shape": "dot", "size": 73.66138744281159, "title": "FightingFakeNews Neighbors:\u003cbr\u003eTakeTheJab", "value": 1}, {"font": {"color": "black"}, "id": "ukpolitics", "label": "ukpolitics", "shape": "dot", "size": 619.385986279961, "title": "ukpolitics Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "singapore", "label": "singapore", "shape": "dot", "size": 662.0090633820657, "title": "singapore Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "UnresolvedMysteries", "label": "UnresolvedMysteries", "shape": "dot", "size": 1211.0425260906406, "title": "UnresolvedMysteries Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "economy", "label": "economy", "shape": "dot", "size": 839.4510110780735, "title": "economy Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "childfree", "label": "childfree", "shape": "dot", "size": 1188.8612198234073, "title": "childfree Neighbors:\u003cbr\u003eTakeTheJab", "value": 1}, {"font": {"color": "black"}, "id": "PoliticalCompassMemes", "label": "PoliticalCompassMemes", "shape": "dot", "size": 719.4018348600454, "title": "PoliticalCompassMemes Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "LockdownSkepticismAU", "label": "LockdownSkepticismAU", "shape": "dot", "size": 48.507731342539614, "title": "LockdownSkepticismAU Neighbors:\u003cbr\u003eTakeTheJab\u003cbr\u003eLockdownSkepticism", "value": 2}, {"font": {"color": "black"}, "id": "CoronavirusUK", "label": "CoronavirusUK", "shape": "dot", "size": 304.55213018463684, "title": "CoronavirusUK Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "TheCinemassacreTruth", "label": "TheCinemassacreTruth", "shape": "dot", "size": 116.58044432922702, "title": "TheCinemassacreTruth Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "stupidpol", "label": "stupidpol", "shape": "dot", "size": 270.3442250169217, "title": "stupidpol Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "climateskeptics", "label": "climateskeptics", "shape": "dot", "size": 180.13605968822566, "title": "climateskeptics Neighbors:\u003cbr\u003eDebateVaccines\u003cbr\u003eLockdownSkepticism", "value": 2}, {"font": {"color": "black"}, "id": "PoliticalHumor", "label": "PoliticalHumor", "shape": "dot", "size": 1205.7238489803542, "title": "PoliticalHumor Neighbors:\u003cbr\u003eDebateVaccines", "value": 1}, {"font": {"color": "black"}, "id": "worldnews", "label": "worldnews", "shape": "dot", "size": 5214.381650780848, "title": "worldnews Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "ConspiracyMemes", "label": "ConspiracyMemes", "shape": "dot", "size": 166.35804759614126, "title": "ConspiracyMemes Neighbors:\u003cbr\u003eTakeTheJab", "value": 1}, {"font": {"color": "black"}, "id": "CasualUK", "label": "CasualUK", "shape": "dot", "size": 953.1988250097668, "title": "CasualUK Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "LockdownCriticalLeft", "label": "LockdownCriticalLeft", "shape": "dot", "size": 82.0, "title": "LockdownCriticalLeft Neighbors:\u003cbr\u003eDebateVaccines\u003cbr\u003eLockdownSkepticism", "value": 2}, {"font": {"color": "black"}, "id": "conservatives", "label": "conservatives", "shape": "dot", "size": 307.05699796617563, "title": "conservatives Neighbors:\u003cbr\u003eTakeTheJab", "value": 1}, {"font": {"color": "black"}, "id": "Anarcho_Capitalism", "label": "Anarcho_Capitalism", "shape": "dot", "size": 407.99877450796345, "title": "Anarcho_Capitalism Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "bernieblindness", "label": "bernieblindness", "shape": "dot", "size": 134.30934442547175, "title": "bernieblindness Neighbors:\u003cbr\u003eDebateVaccines", "value": 1}, {"font": {"color": "black"}, "id": "europe", "label": "europe", "shape": "dot", "size": 1708.528606725682, "title": "europe Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "boxoffice", "label": "boxoffice", "shape": "dot", "size": 708.7199729089057, "title": "boxoffice Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "SubSimulatorGPT2Meta", "label": "SubSimulatorGPT2Meta", "shape": "dot", "size": 168.7394441142912, "title": "SubSimulatorGPT2Meta Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "vancouver", "label": "vancouver", "shape": "dot", "size": 606.2664430759796, "title": "vancouver Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "Coronavirus", "label": "Coronavirus", "shape": "dot", "size": 1535.0475562665804, "title": "Coronavirus Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "Retconned", "label": "Retconned", "shape": "dot", "size": 230.6707610426601, "title": "Retconned Neighbors:\u003cbr\u003eTakeTheJab", "value": 1}, {"font": {"color": "black"}, "id": "moderatepolitics", "label": "moderatepolitics", "shape": "dot", "size": 499.4617102441387, "title": "moderatepolitics Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "tucker_carlson", "label": "tucker_carlson", "shape": "dot", "size": 223.52628480784983, "title": "tucker_carlson Neighbors:\u003cbr\u003eTakeTheJab", "value": 1}, {"font": {"color": "black"}, "id": "GenZedong", "label": "GenZedong", "shape": "dot", "size": 205.15360099203718, "title": "GenZedong Neighbors:\u003cbr\u003eDebateVaccines", "value": 1}, {"font": {"color": "black"}, "id": "ShitPoliticsSays", "label": "ShitPoliticsSays", "shape": "dot", "size": 269.8758974047145, "title": "ShitPoliticsSays Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "NorCalLockdownSkeptic", "label": "NorCalLockdownSkeptic", "shape": "dot", "size": 19.44222209522358, "title": "NorCalLockdownSkeptic Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "conspiracy_commons", "label": "conspiracy_commons", "shape": "dot", "size": 279.5943490129942, "title": "conspiracy_commons Neighbors:\u003cbr\u003eTakeTheJab\u003cbr\u003eDebateVaccines", "value": 2}, {"font": {"color": "black"}, "id": "ftm", "label": "ftm", "shape": "dot", "size": 360.3040382787848, "title": "ftm Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "MensRights", "label": "MensRights", "shape": "dot", "size": 562.1565618224162, "title": "MensRights Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "SPACs", "label": "SPACs", "shape": "dot", "size": 426.8618043348456, "title": "SPACs Neighbors:\u003cbr\u003eDebateVaccines", "value": 1}, {"font": {"color": "black"}, "id": "conspiracyNOPOL", "label": "conspiracyNOPOL", "shape": "dot", "size": 226.4133388296723, "title": "conspiracyNOPOL Neighbors:\u003cbr\u003eTakeTheJab", "value": 1}, {"font": {"color": "black"}, "id": "WildernessBackpacking", "label": "WildernessBackpacking", "shape": "dot", "size": 512.7962558365651, "title": "WildernessBackpacking Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "funny", "label": "funny", "shape": "dot", "size": 6159.182494454925, "title": "funny Neighbors:\u003cbr\u003eTakeTheJab", "value": 1}, {"font": {"color": "black"}, "id": "libertarianmeme", "label": "libertarianmeme", "shape": "dot", "size": 372.6352103599444, "title": "libertarianmeme Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "MaliciousCompliance", "label": "MaliciousCompliance", "shape": "dot", "size": 1308.0638363627365, "title": "MaliciousCompliance Neighbors:\u003cbr\u003eDebateVaccines", "value": 1}, {"font": {"color": "black"}, "id": "Shortages", "label": "Shortages", "shape": "dot", "size": 121.79901477434043, "title": "Shortages Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "britishproblems", "label": "britishproblems", "shape": "dot", "size": 836.3378503930095, "title": "britishproblems Neighbors:\u003cbr\u003eDebateVaccines", "value": 1}, {"font": {"color": "black"}, "id": "LouderWithCrowder", "label": "LouderWithCrowder", "shape": "dot", "size": 314.0525433745124, "title": "LouderWithCrowder Neighbors:\u003cbr\u003eTakeTheJab", "value": 1}, {"font": {"color": "black"}, "id": "CartoonNetwork", "label": "CartoonNetwork", "shape": "dot", "size": 133.70863846438644, "title": "CartoonNetwork Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}, {"font": {"color": "black"}, "id": "walkaway", "label": "walkaway", "shape": "dot", "size": 278.5821243367923, "title": "walkaway Neighbors:\u003cbr\u003econspiracy", "value": 1}, {"font": {"color": "black"}, "id": "canada", "label": "canada", "shape": "dot", "size": 1033.110836261047, "title": "canada Neighbors:\u003cbr\u003eLockdownSkepticism", "value": 1}]);
+        edges = new vis.DataSet([{"from": "LockdownSkepticism", "to": "LockdownSkepticism", "value": 728.1483365359012}, {"from": "LockdownSkepticism", "to": "Conservative", "value": 440.66086733450703}, {"from": "conspiracy", "to": "conspiracy", "value": 427.5558443057468}, {"from": "LockdownSkepticism", "to": "kotakuinaction2", "value": 316.92112583417344}, {"from": "LockdownSkepticism", "to": "movies", "value": 301.62393804205925}, {"from": "LockdownSkepticism", "to": "CoronavirusCirclejerk", "value": 283.5630441365729}, {"from": "TakeTheJab", "to": "conspiracy", "value": 253.7222891273055}, {"from": "LockdownSkepticism", "to": "nottheonion", "value": 245.06325713986584}, {"from": "LockdownSkepticism", "to": "ChurchOfCOVID", "value": 213.47365176995498}, {"from": "TakeTheJab", "to": "TakeTheJab", "value": 194.26270872197782}, {"from": "DebateVaccines", "to": "DebateVaccines", "value": 180.69587709740364}, {"from": "LockdownSkepticism", "to": "collapse", "value": 155.64703659241314}, {"from": "TakeTheJab", "to": "CoronavirusCirclejerk", "value": 150.84429057806597}, {"from": "LockdownSkepticism", "to": "conspiracy", "value": 145.00344823486094}, {"from": "LockdownSkepticism", "to": "COVID19", "value": 143.59665734271115}, {"from": "DebateVaccines", "to": "WayOfTheBern", "value": 138.8992440584181}, {"from": "LockdownSkepticism", "to": "politics", "value": 137.54635582231904}, {"from": "DebateVaccines", "to": "AskReddit", "value": 135.15916543098362}, {"from": "TakeTheJab", "to": "DebateVaccines", "value": 129.6688088940436}, {"from": "LockdownSkepticism", "to": "unitedkingdom", "value": 129.6572404457229}, {"from": "TakeTheJab", "to": "FightingFakeNews", "value": 128.02734082999615}, {"from": "LockdownSkepticism", "to": "ukpolitics", "value": 123.43419299367578}, {"from": "DebateVaccines", "to": "collapse", "value": 122.80065146407001}, {"from": "LockdownSkepticism", "to": "singapore", "value": 116.25403218813531}, {"from": "LockdownSkepticism", "to": "UnresolvedMysteries", "value": 115.92670097954138}, {"from": "TakeTheJab", "to": "ChurchOfCOVID", "value": 113.28724553099524}, {"from": "LockdownSkepticism", "to": "economy", "value": 112.63658375501274}, {"from": "TakeTheJab", "to": "childfree", "value": 110.84674104365901}, {"from": "LockdownSkepticism", "to": "PoliticalCompassMemes", "value": 109.79526401443735}, {"from": "DebateVaccines", "to": "conspiracy", "value": 106.44716999526104}, {"from": "LockdownSkepticism", "to": "LockdownSkepticismAU", "value": 99.17156850630124}, {"from": "LockdownSkepticism", "to": "CoronavirusUK", "value": 91.00549433962765}, {"from": "LockdownSkepticism", "to": "TheCinemassacreTruth", "value": 86.36550237218562}, {"from": "LockdownSkepticism", "to": "stupidpol", "value": 85.30533394811839}, {"from": "DebateVaccines", "to": "climateskeptics", "value": 82.20097323024831}, {"from": "DebateVaccines", "to": "PoliticalHumor", "value": 81.52300288875527}, {"from": "LockdownSkepticism", "to": "worldnews", "value": 81.33265027035576}, {"from": "TakeTheJab", "to": "ConspiracyMemes", "value": 78.587530817554}, {"from": "TakeTheJab", "to": "LockdownSkepticismAU", "value": 77.80102827083971}, {"from": "LockdownSkepticism", "to": "CasualUK", "value": 77.60798927945498}, {"from": "LockdownSkepticism", "to": "LockdownCriticalLeft", "value": 75.93418202627852}, {"from": "TakeTheJab", "to": "conservatives", "value": 74.2024258363566}, {"from": "LockdownSkepticism", "to": "Anarcho_Capitalism", "value": 71.79832867135558}, {"from": "DebateVaccines", "to": "bernieblindness", "value": 68.95650803223725}, {"from": "LockdownSkepticism", "to": "europe", "value": 68.16890786861705}, {"from": "DebateVaccines", "to": "CoronavirusCirclejerk", "value": 64.99230723708769}, {"from": "LockdownSkepticism", "to": "boxoffice", "value": 63.953107821277925}, {"from": "LockdownSkepticism", "to": "SubSimulatorGPT2Meta", "value": 63.80438856379708}, {"from": "LockdownSkepticism", "to": "vancouver", "value": 62.96824596572466}, {"from": "LockdownSkepticism", "to": "Coronavirus", "value": 62.95236294214857}, {"from": "TakeTheJab", "to": "Retconned", "value": 59.6992462263972}, {"from": "LockdownSkepticism", "to": "moderatepolitics", "value": 59.665735560705194}, {"from": "TakeTheJab", "to": "tucker_carlson", "value": 59.61543424315552}, {"from": "DebateVaccines", "to": "GenZedong", "value": 59.28743543112655}, {"from": "LockdownSkepticism", "to": "ShitPoliticsSays", "value": 59.270566050949775}, {"from": "LockdownSkepticism", "to": "NorCalLockdownSkeptic", "value": 59.262129560116215}, {"from": "DebateVaccines", "to": "conspiracy_commons", "value": 57.94825277780168}, {"from": "LockdownSkepticism", "to": "ftm", "value": 57.85326265648291}, {"from": "DebateVaccines", "to": "LockdownCriticalLeft", "value": 55.70457790882182}, {"from": "LockdownSkepticism", "to": "MensRights", "value": 53.9351462406472}, {"from": "DebateVaccines", "to": "SPACs", "value": 53.028294334251406}, {"from": "TakeTheJab", "to": "conspiracyNOPOL", "value": 51.11751167652823}, {"from": "TakeTheJab", "to": "Conservative", "value": 50.05996404313531}, {"from": "LockdownSkepticism", "to": "WildernessBackpacking", "value": 49.9799959983992}, {"from": "TakeTheJab", "to": "funny", "value": 49.26459174701441}, {"from": "LockdownSkepticism", "to": "libertarianmeme", "value": 49.13247398615299}, {"from": "TakeTheJab", "to": "conspiracy_commons", "value": 48.062459362791664}, {"from": "DebateVaccines", "to": "MaliciousCompliance", "value": 47.07440918375928}, {"from": "LockdownSkepticism", "to": "Shortages", "value": 46.79743582719036}, {"from": "DebateVaccines", "to": "britishproblems", "value": 46.647615158762406}, {"from": "TakeTheJab", "to": "LouderWithCrowder", "value": 46.314144707637645}, {"from": "LockdownSkepticism", "to": "CartoonNetwork", "value": 46.238512086787566}, {"from": "conspiracy", "to": "walkaway", "value": 46.17358552246078}, {"from": "LockdownSkepticism", "to": "climateskeptics", "value": 45.12205669071391}, {"from": "LockdownSkepticism", "to": "canada", "value": 44.474711915874174}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
